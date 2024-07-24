@@ -1,0 +1,54 @@
+swagger: "2.0"
+info:
+  description: "Proxy Google Scholar Search API"
+  version: "1.0.0"
+  title: "Proxy Scholar API"
+host: "localhost:8000"
+basePath: "/"
+tags:
+  - name: "Scholar"
+    description: "Google Scholar related operations"
+schemes:
+  - "http"
+paths:
+  /scholar:
+    get:
+      tags:
+        - "Scholar"
+      summary: "Search Google Scholar"
+      description: "Used for searching using scholar api "
+      produces:
+        - "application/json"
+      parameters:
+        - name: "query"
+          in: "query"
+          description: "Search query for Google Scholar"
+          required: true
+          type: "string"
+        - name: "sources"
+          in: "query"
+          description: "List of sources to include in the search"
+          required: false
+          type: "array"
+          items:
+            type: "string"
+        - name: "api_key"
+          in: "header"
+          description: "API key to access the endpoint"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Search results"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+        401:
+          description: "Invalid API key"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                example: "Invalid API key"
